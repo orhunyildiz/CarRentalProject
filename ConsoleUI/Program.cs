@@ -13,7 +13,20 @@ namespace ConsoleUI
             //CarTest();
             //GetCarDetails();
             //ColorTest();
-
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            var result = customerManager.GetAll();
+            if (result.Success)
+            {
+                foreach (var customer in result.Data)
+                {
+                    Console.WriteLine("Customer's Company Name: " + customer.CompanyName);
+                }
+                Console.WriteLine(result.Message);
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
         }
 
         private static void ColorTest()
