@@ -13,6 +13,47 @@ namespace ConsoleUI
             //CarTest();
             //GetCarDetails();
             //ColorTest();
+            //CustomerTest();
+            //RentalTest();
+            //RentalDetailTest();
+        }
+
+        private static void RentalDetailTest()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            var result = rentalManager.GetRentalDetails();
+            if (result.Success)
+            {
+                foreach (var rental in result.Data)
+                {
+                    Console.WriteLine("Id: " + rental.Id + " / User Name: " + rental.UserName + " / Description: " + rental.Description + " / Rent Date " + rental.RentDate + " / Return Date: " + rental.ReturnDate);
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+        }
+
+        private static void RentalTest()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            var result = rentalManager.GetAll();
+            if (result.Success)
+            {
+                foreach (var rental in result.Data)
+                {
+                    Console.WriteLine($"{rental.Id} | {rental.CarId} | {rental.CustomerId} | {rental.RentDate} | {rental.ReturnDate} (RentalId - CarId - CustomerId - RentDate - ReturnDate)");
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+        }
+
+        private static void CustomerTest()
+        {
             CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
             var result = customerManager.GetAll();
             if (result.Success)
