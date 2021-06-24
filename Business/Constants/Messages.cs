@@ -22,6 +22,7 @@ namespace Business.Constants
         public static string MissingCarsPrice = "You need to write a realistic price for your can be rentable car! (Car Daily Price must be Greater than 0$)";
         public static string TheCarNotFound = "Desired car is not on the database";
         public static string CarNotAvailable = "This car already rentaled by someone";
+        public static string CarAvailable = "This car is available for rent";
 
         public static string ColorsListed = "Colors Listed";
         public static string ColorAdded = "Color Added";

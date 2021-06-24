@@ -15,7 +15,7 @@ namespace ConsoleUI
             //ColorTest();
             //CustomerTest();
             //RentalTest();
-            //RentalDetailTest();
+            RentalDetailTest();
         }
 
         private static void RentalDetailTest()
@@ -26,7 +26,7 @@ namespace ConsoleUI
             {
                 foreach (var rental in result.Data)
                 {
-                    Console.WriteLine("Id: " + rental.Id + " / User Name: " + rental.UserName + " / Description: " + rental.Description + " / Rent Date " + rental.RentDate + " / Return Date: " + rental.ReturnDate);
+                    Console.WriteLine("Id: " + rental.Id + " / User Name: " + rental.FirstName + " " + rental.LastName + " / Description: " + rental.Description + " / Rent Date " + rental.RentDate + " / Return Date: " + rental.ReturnDate);
                 }
             }
             else

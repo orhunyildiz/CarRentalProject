@@ -32,8 +32,10 @@ namespace DataAccess.Concrete.EntityFramework
                                  ColorName = color.ColorName,
                                  CompanyName = customer.CompanyName,
                                  DailyPrice = car.DailyPrice,
-                                 UserName = user.FirstName,
-                                 ModelYear = car.ModelYear
+                                 FirstName = user.FirstName,
+                                 LastName = user.LastName,
+                                 ModelYear = car.ModelYear,
+                                 CarId = car.Id
                              };
                 return result.ToList();
             }

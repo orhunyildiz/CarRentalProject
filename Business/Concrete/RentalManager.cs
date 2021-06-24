@@ -62,7 +62,7 @@ namespace Business.Concrete
             {
                 return new ErrorResult(Messages.CarNotAvailable);
             }
-            return new SuccessResult(Messages.CarUpdated);
+            return new SuccessResult(Messages.CarAvailable);
         }
 
         public IResult Update(Rental rental)
