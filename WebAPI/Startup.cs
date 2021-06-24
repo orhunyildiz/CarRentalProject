@@ -30,8 +30,12 @@ namespace WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
             services.AddSingleton<IBrandService, BrandManager>();
             services.AddSingleton<IBrandDal, EfBrandDal>();
+
+            services.AddSingleton<IColorService, ColorManager>();
+            services.AddSingleton<IColorDal, EfColorDal>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
