@@ -85,12 +85,14 @@ namespace WebAPI.Controllers
         {
             string path = _webHostEnvironment.WebRootPath + "\\uploads\\";
             var carImages = _carImageService.GetByCarId(id).Data;
+
             if (carImages.Count == 0)
             {
                 return BadRequest("This car do not have image!");
             }
 
             List<IResult> results = new List<IResult>();
+
             foreach (var carImage in carImages)
             {
                 var result = _carImageService.Delete(carImage, path);
@@ -104,6 +106,7 @@ namespace WebAPI.Controllers
                     return BadRequest(result);
                 }
             }
+
             return Ok(results[0]);
         }
     }

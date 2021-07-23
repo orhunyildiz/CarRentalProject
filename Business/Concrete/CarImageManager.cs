@@ -28,20 +28,13 @@ namespace Business.Concrete
         public IResult Add(CarImage carImage, IFormFile file, string path)
         {
             var result = BusinessRules.Run(CheckIfReachCarImageLimit(carImage.CarId));
+
             if (result != null)
             {
                 return result;
             }
-            var isCarImageDefault = FileOperations.CheckCarImageDefaultOrNot(file, path);
 
-            if (isCarImageDefault.Success)
-            {
-                carImage.ImagePath = isCarImageDefault.Data;
-            }
-            else
-            {
-                carImage.ImagePath = isCarImageDefault.Data;
-            }
+            carImage.ImagePath = FileOperations.CheckCarImageDefaultOrNot(file, path).Data;
             _carImageDal.Add(carImage);
             return new SuccessResult();
         }
@@ -57,6 +50,7 @@ namespace Business.Concrete
                 FileHelper.Delete(carImage.ImagePath, path);
                 _carImageDal.Delete(carImage);
             }
+
             return new SuccessResult();
         }
 
@@ -75,7 +69,6 @@ namespace Business.Concrete
             return new SuccessDataResult<CarImage>(_carImageDal.Get(c => c.Id == id));
         }
 
-        [ValidationAspect(typeof(CarImageValidator))]
         public IResult Update(CarImage carImage, IFormFile file)
         {
             carImage.Date = DateTime.Now;
@@ -99,10 +92,12 @@ namespace Business.Concrete
         private IResult CheckIfReachCarImageLimit(int carId)
         {
             var countOfCarImages = _carImageDal.GetAll(c => c.CarId == carId).Count;
+
             if (countOfCarImages > 5)
             {
                 return new ErrorResult(Messages.CarImageLimitReached);
             }
+
             return new SuccessResult();
         }
     }

@@ -15,7 +15,9 @@ namespace Core.Utilities.FileHelper
             {
                 Directory.CreateDirectory(path);
             }
+
             var sourcePath = Path.GetTempFileName();
+
             if (file.Length > 0)
             {
                 using (var stream = new FileStream(sourcePath, FileMode.Create))
@@ -23,7 +25,8 @@ namespace Core.Utilities.FileHelper
                     file.CopyTo(stream);
                 }
             }
-            var result = newPath(file);
+
+            var result = NewPath(file);
             File.Move(sourcePath, path + result);
             return result;
         }
@@ -34,7 +37,8 @@ namespace Core.Utilities.FileHelper
             {
                 Directory.CreateDirectory(path);
             }
-            var result = newPath(file);
+
+            var result = NewPath(file);
 
             if (sourcePath.Length > 0)
             {
@@ -55,7 +59,7 @@ namespace Core.Utilities.FileHelper
             return new SuccessResult();
         }
 
-        public static string newPath(IFormFile file)
+        public static string NewPath(IFormFile file)
         {
             FileInfo fileInfo = new FileInfo(file.FileName);
             string fileExtension = fileInfo.Extension;
