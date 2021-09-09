@@ -82,9 +82,8 @@ namespace WebAPI.Controllers
         }
 
         [HttpDelete("delete")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(int id, string path = null)
         {
-            string path = _webHostEnvironment.WebRootPath + "\\uploads\\";
             var carImages = _carImageService.GetByCarId(id).Data;
 
             if (carImages.Count == 0)
