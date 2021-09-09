@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
-using Entities.Concrete;
+using Core.Entities.Concrete;
+using Entities.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -34,7 +35,7 @@ namespace WebAPI.Controllers
         [HttpGet("getbyid")]
         public IActionResult GetById(int id)
         {
-            var result = _userService.GetById(id);
+            var result = _userService.GetUserById(id);
             if (result.Success)
             {
                 return Ok(result);
@@ -45,7 +46,7 @@ namespace WebAPI.Controllers
         [HttpGet("getbymail")]
         public IActionResult GetByMail(string email)
         {
-            var result = _userService.GetByMail(email);
+            var result = _userService.GetUserByMail(email);
             if (result.Success)
             {
                 return Ok(result);
@@ -76,9 +77,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("update")]
-        public IActionResult Update(User user)
+        public IActionResult Update(UserForUpdateDto userForUpdateDto)
         {
-            var result = _userService.Update(user);
+            var result = _userService.Update(userForUpdateDto);
             if (result.Success)
             {
                 return Ok(result);
