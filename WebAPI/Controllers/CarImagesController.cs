@@ -15,13 +15,13 @@ namespace WebAPI.Controllers
     [ApiController]
     public class CarImagesController : ControllerBase
     {
-        public static IWebHostEnvironment _webHostEnvironment;
+        public IWebHostEnvironment WebHostEnvironment { get; set; }
         ICarImageService _carImageService;
 
         public CarImagesController(ICarImageService carImageService, IWebHostEnvironment webHostEnvironment)
         {
             _carImageService = carImageService;
-            _webHostEnvironment = webHostEnvironment;
+            WebHostEnvironment = webHostEnvironment;
         }
 
         [HttpGet("getall")]
@@ -58,9 +58,8 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult Add([FromForm(Name = "carId")] string carId, [FromForm(Name = "file")] IFormFile file)
+        public IActionResult Add([FromForm(Name = "carId")] string carId, [FromForm(Name = "file")] IFormFile file, string path = null)
         {
-            string path = _webHostEnvironment.WebRootPath + "\\uploads\\";
             var result = _carImageService.Add(new CarImage { CarId = Convert.ToInt32(carId), Date = DateTime.Now }, file, path);
             if (result.Success)
             {
@@ -70,9 +69,8 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("update")]
-        public IActionResult Update([FromForm(Name = "objectFile")] IFormFile objectFile, [FromForm(Name = "carImage")] CarImage carImage)
+        public IActionResult Update([FromForm(Name = "objectFile")] IFormFile objectFile, [FromForm(Name = "carImage")] CarImage carImage, string path = null)
         {
-            string path = _webHostEnvironment.WebRootPath + "\\uploads\\";
             var result = _carImageService.Update(carImage, objectFile, path);
             if (result.Success)
             {

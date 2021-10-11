@@ -20,7 +20,7 @@ namespace Core.Utilities.FileHelper
 
         public static string AddCarImage(IFormFile file, string path)
         {
-            var fileName = FileHelper.Add(file, path);
+            var fileName = FileHelper.Add(file, ref path);
             return fileName;
         }
     }

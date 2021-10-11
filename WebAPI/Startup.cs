@@ -2,6 +2,7 @@ using Business.Abstract;
 using Business.Concrete;
 using Core.DependencyResolvers;
 using Core.Extensions;
+using Core.Utilities.FileHelper;
 using Core.Utilities.IoC;
 using Core.Utilities.Security.Encryption;
 using Core.Utilities.Security.JWT;
@@ -29,6 +30,7 @@ namespace WebAPI
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            FileHelper.Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
@@ -55,6 +57,7 @@ namespace WebAPI
 
             //services.AddSingleton<ICarService, CarManager>();
             //services.AddSingleton<ICarDal, EfCarDal>();
+            services.AddCors();
 
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 
@@ -84,6 +87,10 @@ namespace WebAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.ConfigureCustomExceptionMiddleware();
+
+            app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
 
             app.UseHttpsRedirection();
 
